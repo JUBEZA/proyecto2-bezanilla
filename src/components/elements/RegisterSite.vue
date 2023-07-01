@@ -39,7 +39,7 @@
 
 
 export default {
-    name: 'RegisterBakery',
+    name: 'RegisterSite',
     props: {
 
     },
