@@ -1,73 +1,27 @@
 <template>
-  <div>
-    <HeaderPlaces :inventario="inventary" :itemsEnCarrito="renderItemsCarrito" />
-    <!-- <FormularioWeb/> -->
-    <MainPage :inventario="inventary" @itemAdded="addItemToCart" />
-
-    <LoginBakery />
-import HeaderPlaces from './components/elements/HeaderPlaces.vue'
-
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div id="app">
+    <router-view />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/elements/HelloWorld.vue'
-import HeaderPlaces from './components/elements/HeaderPlaces.vue'
-import LoginBakery from './components/elements/LoginBakery.vue'
-import MainPage from './components/views/MainPage.vue'
-import products from './assets/products.js'
-//import FormularioWeb from './components/elements/FormularioWeb.vue'
 
 export default {
   name: 'App',
-  data() {
-    return {
-      inventary: [],  //Esta es la lista total de productos en inventario
-      itemsCarrito: [],  //Esto almacena los ID de los elementos agregados al carrito
-    }
+  components: {
+
   },
   created() {
-    this.inventary = products;
+    this.$store.dispatch('cargarInventario');
   },
-  computed: {
-    renderItemsCarrito() {
-      const items = [];
-      for (const element of this.itemsCarrito) {
-        const producto = this.inventary.find(item => item.id === element);
-        if (producto) {
-          items.push(producto);
-        }
-      }
-      return items;
-    }
-
-  // renderItemsCarrito() {
-  //   return this.itemsCarrito.map(element => {
-  //     const producto = this.inventary.find(item => item.id === element.id);
-  //     return producto;
-  //   });
-  // }
-
-  },
-  methods: {
-    addItemToCart(productId) {
-      this.itemsCarrito.push(productId);
-    }
-  },
-  components: {
-    HelloWorld,
-    HeaderPlaces,
-    LoginBakery,
-    MainPage,
-
 }
-}
+
 </script>
+
 
 <style>
 body {
-  background-color: #bbee13;
+  background-image: url(https://images.unsplash.com/photo-1456425731181-2152d80d946c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80); background-position: center;;
 }
 
 #app {
@@ -75,9 +29,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #0c7ef0;
   margin-top: 60px;
-  background-color: #2c3e50;
 }
 
 @import'~bootstrap/dist/css/bootstrap.css'

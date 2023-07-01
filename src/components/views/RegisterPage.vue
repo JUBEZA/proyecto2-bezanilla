@@ -1,22 +1,23 @@
 <template>
     <div>
         <HeaderSite :inventario="this.$store.state.inventario"/>
-        <LoginSite />
-      </div>
-    </template>
+        <FormularioRegistro />
+    </div>
+  </template>
 
 <script>
-import LoginSite from '../elements/LoginSite.vue'
+// import LoginSite from '../elements/LoginSite.vue'
+import FormularioRegistro from '../elements/FormularioRegistro.vue';
 import HeaderSite from '../elements/HeaderSite.vue';
 
 
 export default {
-    name: 'LoginPage',
+    name: 'RegisterPage',
     props: {
 
     },
     components: {
-    LoginSite,
+    FormularioRegistro,
     HeaderSite,
 }
 }

@@ -1,37 +1,57 @@
 <template>
-  <div>
+    <div>
+        <HeaderSite :inventario="this.$store.inventario" :itemsEnCarrito="itemsCarrito" @borrarItemDesdeHeader="eliminarItemCarrito" />
+        <div>
+            <h5>{{ this.$store.state.items_carrito }}</h5>
+            <h1 class="text-secondary p-5 m-3 bg-black" style=" background-color: #e1dee8">Elije Tu Destino!</h1>
+            <div class="row justify-content-around mx-4">
+              <ProductCard v-for="(item, i) in this.$store.state.inventario" :key="i" :producto="item" @addItem="handleAddItem" />
 
-      <h1 class="text-white p-5 m-5 fw-bold" style="background-image: url(https://www.turismobr.com/wp-content/uploads/2011/03/Bandera-de-Brasil.png); background-size: cover; background-position: center; -webkit-text-stroke-width: 1px; -webkit-text-stroke-color: black;">¡¡Los mejores destinos de brazil te esperan!!</h1>
-      <div class="row justify-content-around mx-4">
-          <ProductCard v-for="(item, i) in inventario" :key="i" :productoObjeto="item" @addItem="handleAddItem" />
+            </div>
+          </div>
 
-      </div>
-  </div>
-</template>
+        </div>
+      </template>
 
 <script>
 import ProductCard from '../elements/ProductCard.vue'
+// import products from '../../assets/products.js'
+import HeaderSite from '../elements/HeaderSite.vue';
+
 
 
 export default {
-  name: 'MainPage',
-  props: {
-      inventario: {
-          type: Array,
-          required: true
-      }
+    name: 'MainPage',
 
-  },
 
-  components: {
-      ProductCard,
+    data() {
+        return {
+            itemsCarrito: [],  //Esto almacena los elementos agregados al carrito
+            inventary: null
+        }
+    },
+    created() {
+         this.$store.dispatch('cargarInventario');
+    },
+    components: {
+    ProductCard,
+    HeaderSite,
 
-  },
-  methods: {
-      handleAddItem(productId) {
-          this.$emit('itemAdded', productId);
-      },
-  },
+},
+    methods: {
+        handleAddItem(product) {
+            console.log("Click en botón de product card")
+            this.itemsCarrito.push(product)
+            console.log("items carrito")
+            console.log(this.itemsCarrito)
+            // this.$emit('itemAdded', productId);
+        },
+        eliminarItemCarrito(borrarItem) {
+            console.log("borrando en mainPage")
+            console.log(borrarItem)
+
+        }
+    },
 }
 
 </script>

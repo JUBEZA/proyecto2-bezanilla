@@ -1,35 +1,41 @@
 <template>
-  <div class="card  mx-3 my-3 p-3" style="background-color: darkgreen;width: 18rem;">
-      <img class="card-img-top" :src="productoObjeto.image" :alt="productoObjeto.name"
-          style="object-fit: cover; width: 100%; aspect-ratio: 1/1;">>
-      <div class="card-body">
+    <div class="card  mx-3 my-3 p-3" style="width: 18rem;background-color: rgb(160, 114, 114)">
+        <img class="card-img-top" :src="producto.image" :alt="producto.name"
+            style="object-fit: cover; width: 100%; aspect-ratio: 1/1;">>
+        <div class="card-body">
 
-          <p class="card-text text-light" >{{ productoObjeto.name }}</p>
-          <p class="card-text text-light">{{ productoObjeto.price }}</p>
-          <button class="btn btn-light text-dark" @click="innerAddItemToCart"> Add to Cart</button>
-      </div>
-  </div>
+            <p class="card-text text-light">{{ producto.name }}</p>
+            <p class="card-text text-light">{{ producto.price }}</p>
+            <button class="btn btn-light text-dark" @click="innerAddItemToCart"> Add to Cart</button>
+        </div>
+    </div>
 </template>
 
 <script>
 
 
 export default {
-  name: 'ProductCard',
-  props: {
-      // imageUrl: String,
-      // productName: String,
-      // productPrice: Number,
-      // productId: Number,
-      productoObjeto: {}
+    name: 'ProductCard',
+    props: {
+        producto:{
+            type: Object,
+            required: true
+
+        },
+        imageUrl: String,
+        productName: String,
+        productPrice: Number,
+        productId: Number,
 
 
-  },
-  methods: {
-      innerAddItemToCart(){
-          this.$emit('addItem', this.productoObjeto.id);
-      }
-  }
+    },
+    methods: {
+        innerAddItemToCart(){
+            this.$emit('addItem', this.producto);
+            this.$store.dispatch('agregarItemACarrito',this.producto.id);
+            this.$store.dispatch('actualizarCarritoUsuario');
+        }
+    }
 }
 
 </script>
